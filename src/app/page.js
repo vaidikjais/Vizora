@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { isAuthenticated } from "@/lib/simple-auth";
 import { Button } from "@/components/ui/button";
@@ -15,9 +15,13 @@ import Link from "next/link";
 
 export default function HomePage() {
   const router = useRouter();
+  const [isAuth, setIsAuth] = useState(false);
+  const [isClient, setIsClient] = useState(false);
 
-  // Remove automatic redirect for authenticated users
-  // They should be able to see the landing page
+  useEffect(() => {
+    setIsClient(true);
+    setIsAuth(isAuthenticated());
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-black">
@@ -40,7 +44,7 @@ export default function HomePage() {
           >
             About
           </a>
-          {isAuthenticated() ? (
+          {isClient && isAuth ? (
             <Link
               href="/upload"
               className="text-foreground hover:text-primary transition-colors"
@@ -245,15 +249,15 @@ export default function HomePage() {
           Ready to create amazing thumbnails?
         </h2>
         <p className="text-muted-foreground mb-8">
-          {isAuthenticated()
+          {isClient && isAuth
             ? "Start creating your next viral thumbnail"
             : "Sign in with your credentials to start generating"}
         </p>
 
         <div className="mt-8">
-          <Link href={isAuthenticated() ? "/upload" : "/sign-in"}>
+          <Link href={isClient && isAuth ? "/upload" : "/sign-in"}>
             <Button className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-3">
-              {isAuthenticated() ? "Create Thumbnail" : "Get Started Now"}
+              {isClient && isAuth ? "Create Thumbnail" : "Get Started Now"}
             </Button>
           </Link>
         </div>
