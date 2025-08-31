@@ -25,25 +25,41 @@ export default function FiltersPage() {
 
   useEffect(() => {
     const checkAuth = () => {
+      console.log("🔍 Checking authentication...");
+      
       if (!isAuthenticated()) {
+        console.log("❌ Not authenticated, redirecting to sign-in");
         router.replace("/sign-in");
         return;
       }
 
+      console.log("✅ Authentication successful");
       const currentUser = getCurrentUser();
       setUser(currentUser);
 
       const image = localStorage.getItem("uploadedImage");
       if (!image) {
+        console.log("❌ No uploaded image found, redirecting to upload");
         router.replace("/upload");
         return;
       }
 
+      console.log("✅ Uploaded image found, setting loading to false");
       setLoading(false);
     };
 
     checkAuth();
-  }, [router]);
+
+    // Add timeout to prevent infinite loading
+    const timeout = setTimeout(() => {
+      if (loading) {
+        console.log("⚠️ Loading timeout reached, forcing redirect to upload");
+        router.replace("/upload");
+      }
+    }, 5000);
+
+    return () => clearTimeout(timeout);
+  }, [router, loading]);
 
   const handleLogout = () => {
     logout();
@@ -109,7 +125,9 @@ export default function FiltersPage() {
           setGenerating(false);
         }
       } else {
-        console.error("Failed to generate thumbnails");
+        const errorData = await generateResponse.json();
+        console.error("Failed to generate thumbnails:", errorData);
+        alert(`Error: ${errorData.error || "Failed to generate thumbnails"}`);
         setGenerating(false);
       }
     } catch (error) {

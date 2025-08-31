@@ -81,7 +81,10 @@ export async function POST(request) {
     if (!process.env.GOOGLE_AI_API_KEY) {
       console.error("❌ GOOGLE_AI_API_KEY is not set");
       return NextResponse.json(
-        { error: "API key not configured. Please set GOOGLE_AI_API_KEY in environment variables." },
+        {
+          error:
+            "API key not configured. Please set GOOGLE_AI_API_KEY in environment variables.",
+        },
         { status: 500 }
       );
     }
