@@ -22,9 +22,17 @@ export default function OutputPage() {
     const currentUser = getCurrentUser();
     setUser(currentUser);
 
-    const storedThumbnails = localStorage.getItem("generatedThumbnails");
+        // Check both localStorage and sessionStorage for thumbnails
+    let storedThumbnails = localStorage.getItem("generatedThumbnails");
+    if (!storedThumbnails) {
+      storedThumbnails = sessionStorage.getItem("generatedThumbnails");
+      console.log("📦 Found thumbnails in sessionStorage");
+    } else {
+      console.log("📦 Found thumbnails in localStorage");
+    }
+    
     console.log("📦 Stored thumbnails:", storedThumbnails);
-
+    
     if (!storedThumbnails) {
       console.log("❌ No stored thumbnails found, redirecting to upload");
       router.replace("/upload");
@@ -52,6 +60,14 @@ export default function OutputPage() {
     setLoading(false);
   }, [router]);
 
+  // Cleanup storage when component unmounts
+  useEffect(() => {
+    return () => {
+      // Don't clear storage on unmount as user might want to refresh
+      // Only clear when explicitly navigating away
+    };
+  }, []);
+
   const handleLogout = () => {
     logout();
     router.replace("/");
@@ -67,6 +83,9 @@ export default function OutputPage() {
   };
 
   const handleNewThumbnail = () => {
+    // Clear storage before navigating
+    localStorage.removeItem("generatedThumbnails");
+    sessionStorage.removeItem("generatedThumbnails");
     router.push("/upload");
   };
 
@@ -256,7 +275,12 @@ export default function OutputPage() {
               Create Another Thumbnail
             </Button>
             <Button
-              onClick={() => router.push("/")}
+              onClick={() => {
+                // Clear storage before navigating
+                localStorage.removeItem("generatedThumbnails");
+                sessionStorage.removeItem("generatedThumbnails");
+                router.push("/");
+              }}
               variant="outline"
               className="text-foreground border-border hover:bg-card"
             >

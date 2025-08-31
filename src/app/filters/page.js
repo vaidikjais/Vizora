@@ -116,21 +116,39 @@ export default function FiltersPage() {
         console.log("📊 Thumbnails count:", result?.thumbnails?.length);
 
         if (result?.thumbnails?.length) {
-          // ✅ safe: only store small URLs now
-          localStorage.setItem(
-            "generatedThumbnails",
-            JSON.stringify(result.thumbnails)
-          );
-          console.log("💾 Thumbnails saved to localStorage");
+          // Try to store in localStorage first, fallback to sessionStorage
+          try {
+            localStorage.setItem(
+              "generatedThumbnails",
+              JSON.stringify(result.thumbnails)
+            );
+            console.log("💾 Thumbnails saved to localStorage");
+          } catch (error) {
+            console.warn("⚠️ localStorage quota exceeded, using sessionStorage");
+            try {
+              sessionStorage.setItem(
+                "generatedThumbnails",
+                JSON.stringify(result.thumbnails)
+              );
+              console.log("💾 Thumbnails saved to sessionStorage");
+            } catch (sessionError) {
+              console.error("❌ Both localStorage and sessionStorage failed:", sessionError);
+              alert("Error: Generated images are too large. Please try with a smaller image.");
+              setGenerating(false);
+              setGenerationStep("");
+              return;
+            }
+          }
+          
           setGenerating(false);
           setGenerationStep(""); // Clear the generation step
           console.log("🚀 Navigating to /output");
-          
+
           // Try multiple navigation approaches
           try {
             router.push("/output");
             console.log("✅ Router.push() called successfully");
-            
+
             // Add a timeout to ensure navigation happens
             setTimeout(() => {
               if (window.location.pathname !== "/output") {
