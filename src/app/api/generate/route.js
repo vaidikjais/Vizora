@@ -36,25 +36,23 @@ async function prepareImageForAI(base64Data, aspectRatio) {
   }
 }
 
-// Helper: Save base64 image into /public/generated and return URL
-function saveBase64Image(base64Data, prefix = "thumb") {
-  const data = base64Data.replace(/^data:image\/\w+;base64,/, "");
-  const buffer = Buffer.from(data, "base64");
-
-  // Ensure /public/generated exists
-  const dir = path.join(process.cwd(), "public", "generated");
-  if (!fs.existsSync(dir)) {
-    fs.mkdirSync(dir, { recursive: true });
+// Helper: Create a data URL for Vercel-compatible image handling
+function createDataURL(base64Data, prefix = "thumb") {
+  try {
+    // For Vercel deployment, we'll return the base64 data directly
+    // This avoids file system writes which aren't allowed in serverless
+    console.log(`📸 Creating data URL for ${prefix} image`);
+    
+    // Ensure the base64 data has the proper data URL format
+    if (!base64Data.startsWith('data:image/')) {
+      base64Data = `data:image/png;base64,${base64Data}`;
+    }
+    
+    return base64Data;
+  } catch (error) {
+    console.error("❌ Error creating data URL:", error);
+    return base64Data; // Return original if processing fails
   }
-
-  const fileName = `${prefix}-${Date.now()}-${Math.floor(
-    Math.random() * 1000
-  )}.png`;
-  const filePath = path.join(dir, fileName);
-
-  fs.writeFileSync(filePath, buffer);
-
-  return `/generated/${fileName}`; // ✅ return URL instead of base64
 }
 
 export async function GET(request) {
@@ -251,7 +249,7 @@ async function generateThumbnails(prompt, baseImage, aspectRatio = "16:9") {
       const thumbnails = [];
 
       // Primary version
-      const primaryUrl = saveBase64Image(geminiThumbnail, "gemini_primary");
+      const primaryUrl = createDataURL(geminiThumbnail, "gemini_primary");
       thumbnails.push({
         id: `thumb_${Date.now()}_primary`,
         url: primaryUrl,
@@ -296,10 +294,10 @@ async function generateThumbnails(prompt, baseImage, aspectRatio = "16:9") {
           );
 
           if (variationResult) {
-            const variationUrl = saveBase64Image(
-              variationResult,
-              `gemini_${variation.name}`
-            );
+                              const variationUrl = createDataURL(
+                    variationResult,
+                    `gemini_${variation.name}`
+                  );
             thumbnails.push({
               id: `thumb_${Date.now()}_${variation.name}`,
               url: variationUrl,
@@ -509,7 +507,7 @@ function getCssFilterForVariation(variationName) {
 }
 
 function createEnhancedMockThumbnails(baseImage, prompt, aspectRatio = "16:9") {
-  const fileUrl = saveBase64Image(baseImage, "mock");
+  const fileUrl = createDataURL(baseImage, "mock");
 
   const mockVariations = [
     {
@@ -537,7 +535,7 @@ function createEnhancedMockThumbnails(baseImage, prompt, aspectRatio = "16:9") {
 
   return mockVariations.map((variation) => ({
     id: variation.id,
-    url: fileUrl, // ✅ URL now
+    url: fileUrl, // ✅ Data URL now
     prompt: prompt,
     originalPrompt: prompt,
     optimizationScore: variation.score,
