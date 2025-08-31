@@ -1,3 +1,4 @@
+
 **Vizora – AI YouTube Thumbnail Generator**
 
 An AI-powered platform for creating stunning YouTube thumbnails with templates, customization, and smart prompt optimization.
@@ -118,7 +119,7 @@ src/
 
 ## 🚀 Deployment
 
-- **Vercel** (recommended) – Connect repo & set env variables
+- **Vercel** – Connect repo & set env variables
 - **Netlify** – Works with proper build settings
 - **Railway** – Node.js deployment supported
 - **Custom hosting** – Any Node.js environment
