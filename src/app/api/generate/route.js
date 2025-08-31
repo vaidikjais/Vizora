@@ -2,7 +2,14 @@ import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import fs from "fs";
 import path from "path";
-import sharp from "sharp";
+
+let sharp;
+try {
+  sharp = require("sharp");
+} catch (error) {
+  console.error("❌ Sharp import failed:", error);
+  sharp = null;
+}
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY);
 
@@ -14,6 +21,12 @@ if (!process.env.GOOGLE_AI_API_KEY) {
 // Helper: Resize image to desired aspect ratio using Sharp
 async function resizeImageToAspectRatio(base64Data, aspectRatio) {
   try {
+    // Check if Sharp is available
+    if (!sharp) {
+      console.log("⚠️ Sharp not available, using original image");
+      return base64Data;
+    }
+
     const data = base64Data.replace(/^data:image\/\w+;base64,/, "");
     const buffer = Buffer.from(data, "base64");
 
@@ -73,6 +86,10 @@ function saveBase64Image(base64Data, prefix = "thumb") {
   fs.writeFileSync(filePath, buffer);
 
   return `/generated/${fileName}`; // ✅ return URL instead of base64
+}
+
+export async function GET(request) {
+  return NextResponse.json({ message: "Generate API is working" });
 }
 
 export async function POST(request) {

@@ -26,7 +26,7 @@ export default function FiltersPage() {
   useEffect(() => {
     const checkAuth = () => {
       console.log("🔍 Checking authentication...");
-      
+
       if (!isAuthenticated()) {
         console.log("❌ Not authenticated, redirecting to sign-in");
         router.replace("/sign-in");
