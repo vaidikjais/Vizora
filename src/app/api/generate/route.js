@@ -16,7 +16,7 @@ async function prepareImageForAI(base64Data, aspectRatio) {
     // For Vercel deployment, we'll use the original image
     // The AI model can handle different aspect ratios
     console.log(`🖼️ Using original image for ${aspectRatio} aspect ratio`);
-    
+
     // Log the aspect ratio for the AI prompt
     const aspectRatioMap = {
       "16:9": "16:9 aspect ratio (1280x720 pixels)",
@@ -25,8 +25,10 @@ async function prepareImageForAI(base64Data, aspectRatio) {
       "9:16": "9:16 aspect ratio (1080x1920 pixels)",
       "21:9": "21:9 aspect ratio (1920x823 pixels)",
     };
-    
-    console.log(`📐 Target aspect ratio: ${aspectRatioMap[aspectRatio] || "16:9"}`);
+
+    console.log(
+      `📐 Target aspect ratio: ${aspectRatioMap[aspectRatio] || "16:9"}`
+    );
     return base64Data;
   } catch (error) {
     console.error("❌ Error preparing image:", error);
@@ -551,18 +553,4 @@ function createEnhancedMockThumbnails(baseImage, prompt, aspectRatio = "16:9") {
   }));
 }
 
-export async function GET() {
-  return NextResponse.json({
-    status: "healthy",
-    models: ["Gemini 2.5 Flash Image Preview"],
-    features: [
-      "Simple Prompt Input",
-      "Template Presets",
-      "Custom Options",
-      "Multi-variation Generation",
-      "Quality Scoring",
-      "YouTube 16:9 Aspect Ratio",
-    ],
-    version: "2.5.0",
-  });
-}
+
