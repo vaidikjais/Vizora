@@ -2,8 +2,52 @@ import { NextResponse } from "next/server";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import fs from "fs";
 import path from "path";
+import sharp from "sharp";
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY);
+
+// Helper: Resize image to desired aspect ratio using Sharp
+async function resizeImageToAspectRatio(base64Data, aspectRatio) {
+  try {
+    const data = base64Data.replace(/^data:image\/\w+;base64,/, "");
+    const buffer = Buffer.from(data, "base64");
+
+    // Define target dimensions based on aspect ratio
+    const aspectRatioMap = {
+      "16:9": { width: 1280, height: 720 },
+      "1:1": { width: 1080, height: 1080 },
+      "4:3": { width: 1440, height: 1080 },
+      "9:16": { width: 1080, height: 1920 },
+      "21:9": { width: 1920, height: 823 },
+    };
+
+    const targetDimensions =
+      aspectRatioMap[aspectRatio] || aspectRatioMap["16:9"];
+
+    // Resize and crop to exact aspect ratio
+    const resizedBuffer = await sharp(buffer)
+      .resize(targetDimensions.width, targetDimensions.height, {
+        fit: "cover", // Crop to fill the exact dimensions
+        position: "center", // Center the crop
+      })
+      .png()
+      .toBuffer();
+
+    // Convert back to base64
+    const resizedBase64 = `data:image/png;base64,${resizedBuffer.toString(
+      "base64"
+    )}`;
+
+    console.log(
+      `🖼️ Resized image to ${aspectRatio} (${targetDimensions.width}x${targetDimensions.height})`
+    );
+    return resizedBase64;
+  } catch (error) {
+    console.error("❌ Error resizing image:", error);
+    // Return original image if resizing fails
+    return base64Data;
+  }
+}
 
 // Helper: Save base64 image into /public/generated and return URL
 function saveBase64Image(base64Data, prefix = "thumb") {
@@ -59,10 +103,14 @@ export async function POST(request) {
     console.log("📝 Original prompt:", prompt);
     console.log("🎯 Final optimized prompt:", finalPrompt);
 
-    // Generate thumbnails
+    // Resize image to desired aspect ratio before sending to AI
+    console.log("🔄 Resizing image to match output aspect ratio...");
+    const resizedImage = await resizeImageToAspectRatio(image, aspectRatio);
+
+    // Generate thumbnails with resized image
     const thumbnails = await generateThumbnails(
       finalPrompt,
-      image,
+      resizedImage,
       aspectRatio
     );
 
