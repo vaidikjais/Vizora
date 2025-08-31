@@ -111,6 +111,9 @@ export default function FiltersPage() {
       if (generateResponse.ok) {
         setGenerationStep("Generating your thumbnails...");
         const result = await generateResponse.json();
+        
+        console.log("🎯 API Response:", result);
+        console.log("📊 Thumbnails count:", result?.thumbnails?.length);
 
         if (result?.thumbnails?.length) {
           // ✅ safe: only store small URLs now
@@ -118,10 +121,13 @@ export default function FiltersPage() {
             "generatedThumbnails",
             JSON.stringify(result.thumbnails)
           );
+          console.log("💾 Thumbnails saved to localStorage");
           setGenerating(false);
+          console.log("🚀 Navigating to /output");
           router.push("/output");
         } else {
           console.error("No thumbnails returned from API");
+          console.error("Result:", result);
           setGenerating(false);
         }
       } else {

@@ -23,21 +23,29 @@ export default function OutputPage() {
     setUser(currentUser);
 
     const storedThumbnails = localStorage.getItem("generatedThumbnails");
+    console.log("📦 Stored thumbnails:", storedThumbnails);
+    
     if (!storedThumbnails) {
+      console.log("❌ No stored thumbnails found, redirecting to upload");
       router.replace("/upload");
       return;
     }
 
     try {
       const parsed = JSON.parse(storedThumbnails);
+      console.log("✅ Parsed thumbnails:", parsed);
+      console.log("📊 Thumbnails count:", parsed.length);
+      
       if (parsed.length > 0) {
         setThumbnails(parsed);
         setSelectedThumbnail(parsed[0]);
+        console.log("🎯 Selected thumbnail:", parsed[0]);
       } else {
+        console.log("❌ No thumbnails in parsed data, redirecting to upload");
         router.replace("/upload");
       }
     } catch (error) {
-      console.error("Error parsing thumbnails:", error);
+      console.error("❌ Error parsing thumbnails:", error);
       router.replace("/upload");
     }
 
