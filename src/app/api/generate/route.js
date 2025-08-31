@@ -552,5 +552,3 @@ function createEnhancedMockThumbnails(baseImage, prompt, aspectRatio = "16:9") {
     cssFilter: variation.filter,
   }));
 }
-
-
