@@ -9,18 +9,18 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 // Helper function to compress images for storage
 const compressThumbnails = async (thumbnails) => {
   const compressedThumbnails = [];
-  
+
   for (const thumbnail of thumbnails) {
     try {
       // Create a canvas to compress the image
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
       const img = new Image();
-      
+
       // Set canvas size to reduce image dimensions
       const maxWidth = 800;
       const maxHeight = 600;
-      
+
       await new Promise((resolve, reject) => {
         img.onload = () => {
           // Calculate new dimensions maintaining aspect ratio
@@ -33,32 +33,32 @@ const compressThumbnails = async (thumbnails) => {
             width = (width * maxHeight) / height;
             height = maxHeight;
           }
-          
+
           canvas.width = width;
           canvas.height = height;
-          
+
           // Draw and compress the image
           ctx.drawImage(img, 0, 0, width, height);
-          
+
           // Convert to compressed data URL with reduced quality
-          const compressedDataUrl = canvas.toDataURL('image/jpeg', 0.7);
-          
+          const compressedDataUrl = canvas.toDataURL("image/jpeg", 0.7);
+
           compressedThumbnails.push({
             ...thumbnail,
-            url: compressedDataUrl
+            url: compressedDataUrl,
           });
-          
+
           resolve();
         };
         img.onerror = reject;
         img.src = thumbnail.url;
       });
     } catch (error) {
-      console.warn('Failed to compress thumbnail, using original:', error);
+      console.warn("Failed to compress thumbnail, using original:", error);
       compressedThumbnails.push(thumbnail);
     }
   }
-  
+
   return compressedThumbnails;
 };
 
@@ -173,8 +173,10 @@ export default function FiltersPage() {
 
         if (result?.thumbnails?.length) {
           // Compress thumbnails before storing to reduce size
-          const compressedThumbnails = await compressThumbnails(result.thumbnails);
-          
+          const compressedThumbnails = await compressThumbnails(
+            result.thumbnails
+          );
+
           // Try to store in localStorage first, fallback to sessionStorage
           try {
             localStorage.setItem(
@@ -407,10 +409,10 @@ export default function FiltersPage() {
                 <button
                   key={template.id}
                   onClick={() => handleTemplateSelect(template.id)}
-                  className={`w-full text-left p-3 rounded-lg border transition-colors ${
+                  className={`w-full text-left p-3 rounded-lg border transition-all duration-200 cursor-pointer hover:scale-[1.02] ${
                     selectedTemplate === template.id
                       ? "border-primary bg-primary/10"
-                      : "border-border hover:border-primary/50"
+                      : "border-border hover:border-primary/50 hover:shadow-sm"
                   }`}
                 >
                   <div className="font-medium text-foreground">

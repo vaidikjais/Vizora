@@ -42,12 +42,12 @@ function createDataURL(base64Data, prefix = "thumb") {
     // For Vercel deployment, we'll return the base64 data directly
     // This avoids file system writes which aren't allowed in serverless
     console.log(`📸 Creating data URL for ${prefix} image`);
-    
+
     // Ensure the base64 data has the proper data URL format
     if (!base64Data.startsWith("data:image/")) {
       base64Data = `data:image/png;base64,${base64Data}`;
     }
-    
+
     return base64Data;
   } catch (error) {
     console.error("❌ Error creating data URL:", error);

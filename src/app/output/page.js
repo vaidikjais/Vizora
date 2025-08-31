@@ -231,10 +231,10 @@ export default function OutputPage() {
                   {thumbnails.map((thumbnail) => (
                     <div
                       key={thumbnail.id}
-                      className={`cursor-pointer rounded-lg overflow-hidden border-2 transition-all ${
+                      className={`cursor-pointer rounded-lg overflow-hidden border-2 transition-all duration-200 hover:scale-[1.02] ${
                         selectedThumbnail?.id === thumbnail.id
                           ? "border-primary scale-105"
-                          : "border-border hover:border-primary/50"
+                          : "border-border hover:border-primary/50 hover:shadow-md"
                       }`}
                       onClick={() => setSelectedThumbnail(thumbnail)}
                     >

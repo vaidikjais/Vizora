@@ -123,10 +123,10 @@ export default function UploadPage() {
         {/* Upload Area */}
         <div className="bg-card border border-border rounded-xl p-8 backdrop-blur-sm">
           <div
-            className={`border-2 border-dashed rounded-lg p-12 text-center transition-colors ${
+            className={`border-2 border-dashed rounded-lg p-12 text-center transition-all duration-200 cursor-pointer ${
               dragActive
                 ? "border-primary bg-primary/10"
-                : "border-border hover:border-primary/50"
+                : "border-border hover:border-primary/50 hover:shadow-sm"
             }`}
             onDragEnter={handleDrag}
             onDragLeave={handleDrag}

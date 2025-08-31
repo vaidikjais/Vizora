@@ -29,25 +29,25 @@ export default function Navigation() {
           <div className="hidden lg:flex items-center space-x-8">
             <a
               href="/"
-              className="text-foreground hover:text-primary transition-colors font-medium"
+              className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer hover:scale-105"
             >
               WHAT WE DO
             </a>
             <a
               href="/dashboard"
-              className="text-foreground hover:text-primary transition-colors font-medium"
+              className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer hover:scale-105"
             >
               CASES
             </a>
             <a
               href="/about"
-              className="text-foreground hover:text-primary transition-colors font-medium"
+              className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer hover:scale-105"
             >
               ABOUT
             </a>
             <a
               href="/contact"
-              className="text-foreground hover:text-primary transition-colors font-medium"
+              className="text-foreground hover:text-primary transition-colors font-medium cursor-pointer hover:scale-105"
             >
               CONTACT
             </a>
