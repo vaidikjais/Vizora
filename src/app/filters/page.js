@@ -111,7 +111,7 @@ export default function FiltersPage() {
       if (generateResponse.ok) {
         setGenerationStep("Generating your thumbnails...");
         const result = await generateResponse.json();
-        
+
         console.log("🎯 API Response:", result);
         console.log("📊 Thumbnails count:", result?.thumbnails?.length);
 
@@ -123,8 +123,26 @@ export default function FiltersPage() {
           );
           console.log("💾 Thumbnails saved to localStorage");
           setGenerating(false);
+          setGenerationStep(""); // Clear the generation step
           console.log("🚀 Navigating to /output");
-          router.push("/output");
+          
+          // Try multiple navigation approaches
+          try {
+            router.push("/output");
+            console.log("✅ Router.push() called successfully");
+            
+            // Add a timeout to ensure navigation happens
+            setTimeout(() => {
+              if (window.location.pathname !== "/output") {
+                console.log("⚠️ Navigation timeout, using fallback");
+                window.location.href = "/output";
+              }
+            }, 2000);
+          } catch (error) {
+            console.error("❌ Router.push() failed:", error);
+            // Fallback to window.location
+            window.location.href = "/output";
+          }
         } else {
           console.error("No thumbnails returned from API");
           console.error("Result:", result);

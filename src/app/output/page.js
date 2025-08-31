@@ -24,7 +24,7 @@ export default function OutputPage() {
 
     const storedThumbnails = localStorage.getItem("generatedThumbnails");
     console.log("📦 Stored thumbnails:", storedThumbnails);
-    
+
     if (!storedThumbnails) {
       console.log("❌ No stored thumbnails found, redirecting to upload");
       router.replace("/upload");
@@ -35,7 +35,7 @@ export default function OutputPage() {
       const parsed = JSON.parse(storedThumbnails);
       console.log("✅ Parsed thumbnails:", parsed);
       console.log("📊 Thumbnails count:", parsed.length);
-      
+
       if (parsed.length > 0) {
         setThumbnails(parsed);
         setSelectedThumbnail(parsed[0]);
@@ -144,7 +144,9 @@ export default function OutputPage() {
                         src={selectedThumbnail.url}
                         alt="Selected thumbnail"
                         className="w-full h-full object-cover"
-                        style={{ filter: selectedThumbnail.cssFilter || "none" }}
+                        style={{
+                          filter: selectedThumbnail.cssFilter || "none",
+                        }}
                       />
                     </div>
                     <div className="space-y-2">
@@ -232,7 +234,8 @@ export default function OutputPage() {
                           {thumbnail.metadata?.variation || "Primary"}
                         </div>
                         <div className="text-xs text-muted-foreground">
-                          Score: {(thumbnail.optimizationScore * 100).toFixed(0)}%
+                          Score:{" "}
+                          {(thumbnail.optimizationScore * 100).toFixed(0)}%
                         </div>
                       </div>
                     </div>
