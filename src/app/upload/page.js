@@ -62,18 +62,15 @@ export default function UploadPage() {
 
   const handleContinue = () => {
     if (selectedFile) {
-      // Store file in localStorage or state management
-      localStorage.setItem("uploadedImage", URL.createObjectURL(selectedFile));
-      router.push("/filters");
+      // Convert file to base64 before storing
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        localStorage.setItem("uploadedImage", reader.result);
+        router.push("/filters");
+      };
+      reader.readAsDataURL(selectedFile);
     }
   };
-
-  // Redirect to upload page immediately if authenticated
-  useEffect(() => {
-    if (user && !loading) {
-      router.push("/upload");
-    }
-  }, [user, loading, router]);
 
   if (loading) {
     return (

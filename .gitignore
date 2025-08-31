@@ -45,3 +45,9 @@ next-env.d.ts
 
 # clerk configuration (can include secrets)
 /.clerk/
+
+# credentials file
+DEMO_CREDENTIALS.txt
+
+# generated images
+/public/generated/
