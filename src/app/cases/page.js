@@ -294,8 +294,8 @@ export default function Cases() {
                   </div>
                 </div>
                 <p className="text-muted-foreground text-sm">
-                  "Vizora completely transformed my channel. My click-through
-                  rate went from 2% to 8% in just one month!"
+                  &ldquo;Vizora completely transformed my channel. My click-through
+                  rate went from 2% to 8% in just one month!&rdquo;
                 </p>
               </CardContent>
             </Card>
@@ -316,8 +316,8 @@ export default function Cases() {
                   </div>
                 </div>
                 <p className="text-muted-foreground text-sm">
-                  "The AI understands exactly what I need. It's like having a
-                  professional designer on demand."
+                  &ldquo;The AI understands exactly what I need. It&apos;s like having a
+                  professional designer on demand.&rdquo;
                 </p>
               </CardContent>
             </Card>
@@ -338,8 +338,8 @@ export default function Cases() {
                   </div>
                 </div>
                 <p className="text-muted-foreground text-sm">
-                  "I used to spend hours on thumbnails. Now I get professional
-                  results in minutes. Game changer!"
+                  &ldquo;I used to spend hours on thumbnails. Now I get professional
+                  results in minutes. Game changer!&rdquo;
                 </p>
               </CardContent>
             </Card>

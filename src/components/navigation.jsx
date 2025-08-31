@@ -1,13 +1,25 @@
 "use client";
 
-import { UserButton, useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
+import { isAuthenticated, getCurrentUser, logout } from "@/lib/simple-auth";
 
 export default function Navigation() {
-  const { isSignedIn, user } = useUser();
+  const [isSignedIn, setIsSignedIn] = useState(false);
+  const [user, setUser] = useState(null);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  useEffect(() => {
+    const checkAuth = () => {
+      const authenticated = isAuthenticated();
+      setIsSignedIn(authenticated);
+      if (authenticated) {
+        setUser(getCurrentUser());
+      }
+    };
+    checkAuth();
+  }, []);
 
   return (
     <nav className="border-b border-border bg-background/80 backdrop-blur-sm">
@@ -64,21 +76,23 @@ export default function Navigation() {
                 <div className="flex items-center space-x-3">
                   <div className="text-right hidden lg:block">
                     <p className="text-sm text-foreground">
-                      {user?.username ||
-                        user?.firstName ||
-                        user?.emailAddresses[0]?.emailAddress}
+                      {user?.username || "Demo User"}
                     </p>
                     <p className="text-xs text-muted-foreground">
                       Authorized User
                     </p>
                   </div>
-                  <UserButton
-                    appearance={{
-                      elements: {
-                        avatarBox: "w-8 h-8",
-                      },
+                  <Button
+                    onClick={() => {
+                      logout();
+                      window.location.href = "/";
                     }}
-                  />
+                    variant="outline"
+                    size="sm"
+                    className="text-foreground border-border hover:bg-card"
+                  >
+                    Logout
+                  </Button>
                 </div>
               ) : (
                 <Link href="/sign-in">

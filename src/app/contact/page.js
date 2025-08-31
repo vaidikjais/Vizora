@@ -32,7 +32,7 @@ export default function Contact() {
     setTimeout(() => {
       setIsSubmitting(false);
       setFormData({ name: "", email: "", subject: "", message: "" });
-      alert("Thank you for your message! We'll get back to you soon.");
+              alert("Thank you for your message! We&apos;ll get back to you soon.");
     }, 2000);
   };
 
@@ -54,10 +54,10 @@ export default function Contact() {
             Get in Touch
           </Badge>
           <h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
-            Let's Build Something <span className="text-primary">Amazing</span>
+            Let&apos;s Build Something <span className="text-primary">Amazing</span>
           </h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            Have questions about Vizora? Want to discuss a custom solution? We'd
+                          Have questions about Vizora? Want to discuss a custom solution? We&apos;d
             love to hear from you and help you create stunning YouTube
             thumbnails.
           </p>
@@ -71,7 +71,7 @@ export default function Contact() {
                 Send us a Message
               </CardTitle>
               <CardDescription className="text-muted-foreground">
-                Fill out the form below and we'll get back to you within 24
+                Fill out the form below and we&apos;ll get back to you within 24
                 hours.
               </CardDescription>
             </CardHeader>
@@ -122,7 +122,7 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                     className="bg-background/50 border-border"
-                    placeholder="What's this about?"
+                    placeholder="What&apos;s this about?"
                   />
                 </div>
 
@@ -166,7 +166,7 @@ export default function Contact() {
                 Contact Information
               </h2>
               <p className="text-lg text-muted-foreground mb-8">
-                Ready to transform your YouTube channel? Here's how to reach us.
+                Ready to transform your YouTube channel? Here&apos;s how to reach us.
               </p>
             </div>
 
@@ -291,7 +291,7 @@ export default function Contact() {
                     <p className="text-sm text-muted-foreground">
                       Our AI analyzes your uploaded image and description, then
                       applies proven design principles to create thumbnails
-                      optimized for YouTube's algorithm.
+                      optimized for YouTube&apos;s algorithm.
                     </p>
                   </CardContent>
                 </Card>

@@ -201,8 +201,8 @@ export default function HomePage() {
             </CardHeader>
             <CardContent>
               <p className="text-sm text-muted-foreground">
-                Select from templates like "Make my video POP", "Professional &
-                Clean", "Viral/Clickbait", "Foodie Special", and "Gamer Mode".
+                Select from templates like &ldquo;Make my video POP&rdquo;, &ldquo;Professional &
+                Clean&rdquo;, &ldquo;Viral/Clickbait&rdquo;, &ldquo;Foodie Special&rdquo;, and &ldquo;Gamer Mode&rdquo;.
               </p>
             </CardContent>
           </Card>

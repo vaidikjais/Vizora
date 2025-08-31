@@ -55,7 +55,7 @@ export default function WhatWeDo() {
               </CardTitle>
               <CardDescription className="text-muted-foreground">
                 Upload any image and let our AI create stunning, click-worthy
-                thumbnails optimized for YouTube's algorithm.
+                thumbnails optimized for YouTube&apos;s algorithm.
               </CardDescription>
             </CardHeader>
           </Card>

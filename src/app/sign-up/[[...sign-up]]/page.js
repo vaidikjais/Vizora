@@ -1,5 +1,4 @@
-import { SignUp } from "@clerk/nextjs";
-import { clerkConfig } from "@/lib/clerk-config";
+import Link from "next/link";
 
 export default function SignUpPage() {
   return (
@@ -14,45 +13,23 @@ export default function SignUpPage() {
           </p>
         </div>
 
-        <SignUp
-          appearance={{
-            elements: {
-              formButtonPrimary:
-                "bg-primary hover:bg-primary/90 text-primary-foreground",
-              card: "bg-card border-border backdrop-blur-sm opacity-50",
-              headerTitle: "text-foreground",
-              headerSubtitle: "text-muted-foreground",
-              formFieldLabel: "text-foreground",
-              formFieldInput: "bg-background border-border text-foreground",
-              footerActionLink: "text-primary hover:text-primary/90",
-              // Hide social buttons
-              socialButtonsBlockButton: "hidden",
-              socialButtonsBlockButtonText: "hidden",
-              socialButtonsBlockButtonArrow: "hidden",
-              socialButtonsBlockButtonIcon: "hidden",
-            },
-            variables: {
-              colorPrimary: "oklch(0.75 0.25 25)",
-              colorBackground: "oklch(0.08 0.02 30)",
-              colorText: "oklch(0.985 0 0)",
-              colorTextSecondary: "oklch(0.708 0 0)",
-            },
-          }}
-          routing="path"
-          path="/sign-up"
-          signInUrl="/sign-in"
-          redirectUrl="/dashboard"
-          afterSignUpUrl="/dashboard"
-          identifier="username"
-          {...clerkConfig.signUp}
-        />
+        <div className="bg-card border border-border rounded-lg p-6 backdrop-blur-sm">
+          <p className="text-center text-muted-foreground mb-4">
+            Sign-up functionality is currently disabled. Please use the demo credentials to sign in.
+          </p>
+          <Link href="/sign-in">
+            <button className="w-full bg-primary hover:bg-primary/90 text-primary-foreground font-medium py-2 px-4 rounded-md transition-colors">
+              Go to Sign In
+            </button>
+          </Link>
+        </div>
 
         <div className="mt-6 text-center">
           <p className="text-sm text-muted-foreground">
             Already have an account?{" "}
-            <a href="/sign-in" className="text-primary hover:text-primary/90">
+            <Link href="/sign-in" className="text-primary hover:text-primary/90">
               Sign in here
-            </a>
+            </Link>
           </p>
         </div>
       </div>

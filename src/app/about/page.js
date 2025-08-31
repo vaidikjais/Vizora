@@ -43,7 +43,7 @@ export default function About() {
               thumbnails that convert.
             </p>
             <p className="text-lg text-muted-foreground leading-relaxed">
-              Whether you're a gaming channel, educational content creator, or
+              Whether you&apos;re a gaming channel, educational content creator, or
               lifestyle vlogger, Vizora helps you stand out in the crowded
               YouTube landscape.
             </p>
@@ -115,7 +115,7 @@ export default function About() {
                 </div>
                 <CardTitle className="text-foreground">Gemini AI</CardTitle>
                 <CardDescription className="text-muted-foreground">
-                  Google's most advanced AI model for image understanding and
+                  Google&apos;s most advanced AI model for image understanding and
                   generation
                 </CardDescription>
               </CardHeader>
