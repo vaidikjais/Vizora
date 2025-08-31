@@ -5,6 +5,11 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
 });
 
+// Check if API key is available
+if (!process.env.OPENAI_API_KEY) {
+  console.error("❌ OPENAI_API_KEY is not set");
+}
+
 // YouTube thumbnail analysis and optimization tools
 class ThumbnailOptimizer {
   static getColorPsychology(emotion) {

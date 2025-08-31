@@ -6,6 +6,11 @@ import sharp from "sharp";
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_AI_API_KEY);
 
+// Check if API key is available
+if (!process.env.GOOGLE_AI_API_KEY) {
+  console.error("❌ GOOGLE_AI_API_KEY is not set");
+}
+
 // Helper: Resize image to desired aspect ratio using Sharp
 async function resizeImageToAspectRatio(base64Data, aspectRatio) {
   try {
@@ -72,6 +77,15 @@ function saveBase64Image(base64Data, prefix = "thumb") {
 
 export async function POST(request) {
   try {
+    // Check if API key is available
+    if (!process.env.GOOGLE_AI_API_KEY) {
+      console.error("❌ GOOGLE_AI_API_KEY is not set");
+      return NextResponse.json(
+        { error: "API key not configured. Please set GOOGLE_AI_API_KEY in environment variables." },
+        { status: 500 }
+      );
+    }
+
     const {
       image,
       prompt,
