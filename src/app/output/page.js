@@ -22,7 +22,7 @@ export default function OutputPage() {
     const currentUser = getCurrentUser();
     setUser(currentUser);
 
-        // Check both localStorage and sessionStorage for thumbnails
+    // Check both localStorage and sessionStorage for thumbnails
     let storedThumbnails = localStorage.getItem("generatedThumbnails");
     if (!storedThumbnails) {
       storedThumbnails = sessionStorage.getItem("generatedThumbnails");
@@ -30,9 +30,9 @@ export default function OutputPage() {
     } else {
       console.log("📦 Found thumbnails in localStorage");
     }
-    
+
     console.log("📦 Stored thumbnails:", storedThumbnails);
-    
+
     if (!storedThumbnails) {
       console.log("❌ No stored thumbnails found, redirecting to upload");
       router.replace("/upload");

@@ -36,7 +36,7 @@ async function prepareImageForAI(base64Data, aspectRatio) {
   }
 }
 
-// Helper: Create a compressed data URL for Vercel-compatible image handling
+// Helper: Create a data URL for Vercel-compatible image handling
 function createDataURL(base64Data, prefix = "thumb") {
   try {
     // For Vercel deployment, we'll return the base64 data directly
@@ -47,10 +47,6 @@ function createDataURL(base64Data, prefix = "thumb") {
     if (!base64Data.startsWith("data:image/")) {
       base64Data = `data:image/png;base64,${base64Data}`;
     }
-    
-    // For localStorage compatibility, we need to compress the image
-    // Since we can't use Sharp on Vercel, we'll return a smaller version
-    // by reducing the quality or using a different approach
     
     return base64Data;
   } catch (error) {
