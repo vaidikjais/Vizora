@@ -48,8 +48,8 @@ Create a `.env.local` file with:
 ```env
 GOOGLE_AI_API_KEY=your_gemini_api_key_here
 OPENAI_API_KEY=your_openai_api_key_here
-DEMO_USERNAME=chaicode
-DEMO_PASSWORD=ilovetea
+DEMO_USERNAME= battleofBs
+DEMO_PASSWORD=jonsnow
 ```
 
 ### 3. Run development server
