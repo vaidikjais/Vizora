@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 import { getDisplayName } from "@/lib/utils";
+import Image from "next/image";
 
 // Map stored aspect-ratio string to a Tailwind aspect-ratio class
 function getAspectClass(aspectRatio) {
@@ -147,11 +148,13 @@ export default function OutputPage() {
               <CardContent>
                 {selectedThumbnail && (
                   <div className="space-y-4">
-                    <div className={`w-full ${getAspectClass(selectedThumbnail.metadata?.aspectRatio)} rounded-lg overflow-hidden bg-background border border-border`}>
-                      <img
+                    <div className={`w-full ${getAspectClass(selectedThumbnail.metadata?.aspectRatio)} rounded-lg overflow-hidden bg-background border border-border relative`}>
+                      <Image
                         src={selectedThumbnail.url}
                         alt="Selected thumbnail"
-                        className="w-full h-full object-contain"
+                        fill
+                        className="object-contain"
+                        unoptimized
                         style={{
                           filter: selectedThumbnail.cssFilter || "none",
                         }}
@@ -227,13 +230,15 @@ export default function OutputPage() {
                       }`}
                       onClick={() => setSelectedThumbnail(thumbnail)}
                     >
-                      <div className={`${getAspectClass(thumbnail.metadata?.aspectRatio)} bg-background`}>
-                        <img
+                      <div className={`${getAspectClass(thumbnail.metadata?.aspectRatio)} bg-background relative`}>
+                        <Image
                           src={thumbnail.url}
                           alt={`Thumbnail ${
                             thumbnail.metadata?.variation || "variation"
                           }`}
-                          className="w-full h-full object-contain"
+                          fill
+                          className="object-contain"
+                          unoptimized
                           style={{ filter: thumbnail.cssFilter || "none" }}
                         />
                       </div>

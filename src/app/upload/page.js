@@ -6,6 +6,7 @@ import { useClerk, useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 
 import { getDisplayName } from "@/lib/utils";
+import Image from "next/image";
 
 export default function UploadPage() {
   const { user, isLoaded } = useUser();
@@ -121,11 +122,13 @@ export default function UploadPage() {
           >
             {selectedFile ? (
               <div className="space-y-4">
-                <div className="w-32 h-32 mx-auto rounded-lg overflow-hidden bg-background border border-border">
-                  <img
+                <div className="w-32 h-32 mx-auto rounded-lg overflow-hidden bg-background border border-border relative">
+                  <Image
                     src={URL.createObjectURL(selectedFile)}
                     alt="Preview"
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
+                    unoptimized
                   />
                 </div>
                 <div>
