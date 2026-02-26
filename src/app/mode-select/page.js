@@ -67,42 +67,52 @@ export default function ModeSelectPage() {
 
         <div className="grid md:grid-cols-2 gap-6 max-w-4xl w-full">
           {/* Templates Card */}
-          <Link href="/templates" className="group relative block">
-            <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-purple-600/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
-            <div className="relative h-full bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 hover:border-primary/40 rounded-3xl p-8 flex flex-col items-start transition-all duration-300 transform group-hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/10">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-purple-500 flex items-center justify-center mb-6 shadow-md">
-                <LayoutTemplate className="w-6 h-6 text-white" />
+          <Link href="/templates" className="group block h-full">
+            <div className="h-full bg-black border border-zinc-800 rounded-3xl overflow-hidden hover:border-zinc-700 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl shadow-primary/5">
+              {/* Gradient Header */}
+              <div className="relative h-32 flex items-center justify-center bg-black">
+                <div className="absolute inset-0 bg-gradient-to-r from-primary/30 to-purple-600/30 opacity-30 group-hover:opacity-60 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                <LayoutTemplate className="w-10 h-10 relative z-10 text-zinc-500 group-hover:text-white transition-colors duration-300" />
               </div>
-              <h2 className="text-2xl font-bold text-white mb-3">
-                Quick Templates
-              </h2>
-              <p className="text-zinc-400 text-base leading-relaxed mb-8 flex-1">
-                Get stunning results in seconds using our pre-optimized aesthetic
-                styles. Perfect if you want beautiful thumbnails without overthinking verbs and adjectives.
-              </p>
-              <div className="flex items-center text-primary font-medium text-base group-hover:translate-x-1 transition-transform duration-300">
-                Use Templates
-                <ArrowRight className="ml-2 w-4 h-4" />
+              
+              <div className="p-8 pt-6 flex flex-col items-start h-[calc(100%-8rem)]">
+                <h2 className="text-2xl font-bold text-white mb-3 group-hover:text-primary transition-colors duration-300">
+                  Quick Templates
+                </h2>
+                <p className="text-zinc-500 text-base leading-relaxed mb-8 flex-1">
+                  Get stunning results in seconds using our pre-optimized aesthetic
+                  styles. Perfect if you want beautiful thumbnails without overthinking verbs and adjectives.
+                </p>
+                <div className="flex items-center text-primary font-medium text-base group-hover:translate-x-1 transition-transform duration-300">
+                  Use Templates
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </div>
               </div>
             </div>
           </Link>
 
           {/* Custom Card */}
-          <Link href="/custom" className="group relative block">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-3xl" />
-            <div className="relative h-full bg-zinc-900/50 backdrop-blur-xl border border-zinc-800 hover:border-blue-500/40 rounded-3xl p-8 flex flex-col items-start transition-all duration-300 transform group-hover:-translate-y-1 hover:shadow-xl hover:shadow-blue-500/10">
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center mb-6 shadow-md">
-                <SlidersHorizontal className="w-6 h-6 text-white" />
+          <Link href="/custom" className="group block h-full">
+            <div className="h-full bg-black border border-zinc-800 rounded-3xl overflow-hidden hover:border-zinc-700 transition-all duration-300 transform hover:-translate-y-1 hover:shadow-2xl shadow-blue-500/5">
+              {/* Gradient Header */}
+              <div className="relative h-32 flex items-center justify-center bg-black">
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500/30 to-cyan-500/30 opacity-30 group-hover:opacity-60 transition-opacity duration-500"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent"></div>
+                <SlidersHorizontal className="w-10 h-10 relative z-10 text-zinc-500 group-hover:text-white transition-colors duration-300" />
               </div>
-              <h2 className="text-2xl font-bold text-white mb-3">
-                Custom Prompt
-              </h2>
-              <p className="text-zinc-400 text-base leading-relaxed mb-8 flex-1">
-                Take absolute control. Describe exactly what you want to see, tweak all advanced parameters (style, lighting, focus), and craft a highly specific vision.
-              </p>
-              <div className="flex items-center text-blue-400 font-medium text-base group-hover:translate-x-1 transition-transform duration-300">
-                Craft Custom Prompt
-                <ArrowRight className="ml-2 w-4 h-4" />
+              
+              <div className="p-8 pt-6 flex flex-col items-start h-[calc(100%-8rem)]">
+                <h2 className="text-2xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors duration-300">
+                  Custom Prompt
+                </h2>
+                <p className="text-zinc-500 text-base leading-relaxed mb-8 flex-1">
+                  Take absolute control. Describe exactly what you want to see, tweak all advanced parameters (style, lighting, focus), and craft a highly specific vision.
+                </p>
+                <div className="flex items-center text-blue-400 font-medium text-base group-hover:translate-x-1 transition-transform duration-300">
+                  Craft Custom Prompt
+                  <ArrowRight className="ml-2 w-4 h-4" />
+                </div>
               </div>
             </div>
           </Link>

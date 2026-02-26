@@ -281,7 +281,7 @@ export default function CustomPromptPage() {
             <Button
               onClick={handleGenerate}
               disabled={generating || !prompt.trim()}
-              className="w-full h-16 text-lg font-bold bg-blue-600 hover:bg-blue-500 text-white rounded-2xl shadow-[0_0_30px_rgba(37,99,235,0.3)] hover:shadow-[0_0_50px_rgba(37,99,235,0.5)] transition-all transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none flex items-center justify-center outline-none"
+              className="w-full h-14 text-base font-bold bg-blue-600 hover:bg-blue-500 text-white rounded-2xl shadow-[0_0_30px_rgba(37,99,235,0.3)] hover:shadow-[0_0_50px_rgba(37,99,235,0.5)] transition-all transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none flex items-center justify-center outline-none"
             >
               Generate Custom Vision
             </Button>

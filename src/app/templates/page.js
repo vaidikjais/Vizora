@@ -383,9 +383,8 @@ export default function TemplatesPage() {
               <Button
                 onClick={handleGenerate}
                 disabled={generating}
-                className="w-full h-16 text-lg font-bold bg-primary hover:bg-primary/90 text-white rounded-2xl shadow-[0_0_30px_rgba(var(--primary),0.3)] hover:shadow-[0_0_50px_rgba(var(--primary),0.5)] transition-all transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none outline-none"
+                className="w-full h-14 text-base font-bold bg-primary hover:bg-primary/90 text-white rounded-2xl shadow-[0_0_30px_rgba(var(--primary),0.3)] hover:shadow-[0_0_50px_rgba(var(--primary),0.5)] transition-all transform hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none disabled:shadow-none outline-none"
               >
-                <Wand2 className="w-5 h-5 mr-3" />
                 Generate Magic
               </Button>
             </div>
