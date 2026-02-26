@@ -5,7 +5,7 @@ An AI-powered platform for creating stunning YouTube thumbnails with templates, 
 Built with Next.js, React, Google Gemini, and OpenAI.
 Made by Vaidik Jaiswal ✨
 
-🌐 **Live Demo**: [https://vizora-bice.vercel.app/](https://vizora-bice.vercel.app/) ✨
+🌐 **Live Demo**: [https://vizora-iezz.vercel.app/](vizora-demo) ✨
 
 ---
 
