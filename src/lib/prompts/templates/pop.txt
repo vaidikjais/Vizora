@@ -1,0 +1,4 @@
+ENGINE: Octane Render, 8k resolution.
+LIGHTING: High-energy club lighting, strobe effects, intense highlights.
+AESTHETIC: Vibrant pop-art aesthetic, extreme color saturation, dynamic and chaotic visual energy, glossy finishes.
+LENS: 35mm lens, sharp focus everywhere.

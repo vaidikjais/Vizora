@@ -1,25 +1,25 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
-import { isAuthenticated, getCurrentUser, logout } from "@/lib/simple-auth";
+import { useAuth, useClerk, useUser } from "@clerk/nextjs";
+
+function getDisplayName(user) {
+  if (!user) return "User";
+  return (
+    user.username ??
+    user.firstName ??
+    user.emailAddresses?.[0]?.emailAddress ??
+    "User"
+  );
+}
 
 export default function Navigation() {
-  const [isSignedIn, setIsSignedIn] = useState(false);
-  const [user, setUser] = useState(null);
+  const { isSignedIn } = useAuth();
+  const { user } = useUser();
+  const { signOut } = useClerk();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const checkAuth = () => {
-      const authenticated = isAuthenticated();
-      setIsSignedIn(authenticated);
-      if (authenticated) {
-        setUser(getCurrentUser());
-      }
-    };
-    checkAuth();
-  }, []);
 
   return (
     <nav className="border-b border-border bg-background/80 backdrop-blur-sm">
@@ -76,17 +76,14 @@ export default function Navigation() {
                 <div className="flex items-center space-x-3">
                   <div className="text-right hidden lg:block">
                     <p className="text-sm text-foreground">
-                      {user?.username || "Demo User"}
+                      {getDisplayName(user)}
                     </p>
                     <p className="text-xs text-muted-foreground">
                       Authorized User
                     </p>
                   </div>
                   <Button
-                    onClick={() => {
-                      logout();
-                      window.location.href = "/";
-                    }}
+                    onClick={() => signOut(() => (window.location.href = "/"))}
                     variant="outline"
                     size="sm"
                     className="text-foreground border-border hover:bg-card"

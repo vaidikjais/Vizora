@@ -1,8 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { isAuthenticated } from "@/lib/simple-auth";
+import { useAuth } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,14 +12,7 @@ import {
 import Link from "next/link";
 
 export default function HomePage() {
-  const router = useRouter();
-  const [isAuth, setIsAuth] = useState(false);
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-    setIsAuth(isAuthenticated());
-  }, []);
+  const { isSignedIn } = useAuth();
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-background to-black">
@@ -44,7 +35,7 @@ export default function HomePage() {
           >
             About
           </a>
-          {isClient && isAuth ? (
+          {isSignedIn ? (
             <Link
               href="/upload"
               className="text-foreground hover:text-primary transition-colors"
@@ -85,17 +76,11 @@ export default function HomePage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link href="/sign-in">
+              <Link href={isSignedIn ? "/upload" : "/sign-in"}>
                 <Button className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-3 w-full sm:w-auto">
                   Get Started
                 </Button>
               </Link>
-              <Button
-                variant="outline"
-                className="text-foreground border-border hover:bg-card text-lg px-8 py-3 w-full sm:w-auto"
-              >
-                View Demo
-              </Button>
             </div>
           </div>
 
@@ -249,15 +234,15 @@ export default function HomePage() {
           Ready to create amazing thumbnails?
         </h2>
         <p className="text-muted-foreground mb-8">
-          {isClient && isAuth
+          {isSignedIn
             ? "Start creating your next viral thumbnail"
             : "Sign in with your credentials to start generating"}
         </p>
 
         <div className="mt-8">
-          <Link href={isClient && isAuth ? "/upload" : "/sign-in"}>
+          <Link href={isSignedIn ? "/upload" : "/sign-in"}>
             <Button className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-3">
-              {isClient && isAuth ? "Create Thumbnail" : "Get Started Now"}
+              {isSignedIn ? "Create Thumbnail" : "Get Started Now"}
             </Button>
           </Link>
         </div>

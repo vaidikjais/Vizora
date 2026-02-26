@@ -2,75 +2,64 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { isAuthenticated, getCurrentUser, logout } from "@/lib/simple-auth";
+import { useClerk, useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+import { getDisplayName } from "@/lib/utils";
+
+// Map stored aspect-ratio string to a Tailwind aspect-ratio class
+function getAspectClass(aspectRatio) {
+  const map = {
+    "16:9":  "aspect-video",
+    "1:1":   "aspect-square",
+    "9:16":  "aspect-[9/16]",
+    "4:3":   "aspect-[4/3]",
+    "21:9":  "aspect-[21/9]",
+  };
+  return map[aspectRatio] || "aspect-video";
+}
+
 export default function OutputPage() {
-  const [user, setUser] = useState(null);
+  const { user, isLoaded } = useUser();
+  const { signOut } = useClerk();
   const [loading, setLoading] = useState(true);
   const [thumbnails, setThumbnails] = useState([]);
   const [selectedThumbnail, setSelectedThumbnail] = useState(null);
   const router = useRouter();
 
   useEffect(() => {
-    if (!isAuthenticated()) {
-      router.replace("/sign-in");
-      return;
-    }
+    if (!isLoaded) return;
 
-    const currentUser = getCurrentUser();
-    setUser(currentUser);
-
-    // Check both localStorage and sessionStorage for thumbnails
     let storedThumbnails = localStorage.getItem("generatedThumbnails");
     if (!storedThumbnails) {
       storedThumbnails = sessionStorage.getItem("generatedThumbnails");
-      console.log("📦 Found thumbnails in sessionStorage");
-    } else {
-      console.log("📦 Found thumbnails in localStorage");
     }
 
-    console.log("📦 Stored thumbnails:", storedThumbnails);
-
     if (!storedThumbnails) {
-      console.log("❌ No stored thumbnails found, redirecting to upload");
       router.replace("/upload");
       return;
     }
 
     try {
       const parsed = JSON.parse(storedThumbnails);
-      console.log("✅ Parsed thumbnails:", parsed);
-      console.log("📊 Thumbnails count:", parsed.length);
 
       if (parsed.length > 0) {
         setThumbnails(parsed);
         setSelectedThumbnail(parsed[0]);
-        console.log("🎯 Selected thumbnail:", parsed[0]);
       } else {
-        console.log("❌ No thumbnails in parsed data, redirecting to upload");
         router.replace("/upload");
       }
     } catch (error) {
-      console.error("❌ Error parsing thumbnails:", error);
+      console.error("Error parsing thumbnails:", error);
       router.replace("/upload");
     }
 
     setLoading(false);
-  }, [router]);
-
-  // Cleanup storage when component unmounts
-  useEffect(() => {
-    return () => {
-      // Don't clear storage on unmount as user might want to refresh
-      // Only clear when explicitly navigating away
-    };
-  }, []);
+  }, [isLoaded, router]);
 
   const handleLogout = () => {
-    logout();
-    router.replace("/");
+    signOut(() => router.push("/"));
   };
 
   const handleDownload = (thumbnail) => {
@@ -89,7 +78,7 @@ export default function OutputPage() {
     router.push("/upload");
   };
 
-  if (loading) {
+  if (!isLoaded || loading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-background via-background to-black flex items-center justify-center">
         <div className="text-center">
@@ -100,7 +89,7 @@ export default function OutputPage() {
     );
   }
 
-  if (!user || thumbnails.length === 0) {
+  if (thumbnails.length === 0) {
     return (
       <div className="min-h-screen flex items-center justify-center text-foreground">
         <div className="text-center">
@@ -123,7 +112,7 @@ export default function OutputPage() {
         </div>
         <div className="flex items-center space-x-4">
           <span className="text-muted-foreground">
-            Welcome, {user.username}
+            Welcome, {getDisplayName(user)}
           </span>
           <Button
             onClick={handleLogout}
@@ -158,11 +147,11 @@ export default function OutputPage() {
               <CardContent>
                 {selectedThumbnail && (
                   <div className="space-y-4">
-                    <div className="w-full aspect-video rounded-lg overflow-hidden bg-background border border-border">
+                    <div className={`w-full ${getAspectClass(selectedThumbnail.metadata?.aspectRatio)} rounded-lg overflow-hidden bg-background border border-border`}>
                       <img
                         src={selectedThumbnail.url}
                         alt="Selected thumbnail"
-                        className="w-full h-full object-cover"
+                        className="w-full h-full object-contain"
                         style={{
                           filter: selectedThumbnail.cssFilter || "none",
                         }}
@@ -238,13 +227,13 @@ export default function OutputPage() {
                       }`}
                       onClick={() => setSelectedThumbnail(thumbnail)}
                     >
-                      <div className="aspect-video bg-background">
+                      <div className={`${getAspectClass(thumbnail.metadata?.aspectRatio)} bg-background`}>
                         <img
                           src={thumbnail.url}
                           alt={`Thumbnail ${
                             thumbnail.metadata?.variation || "variation"
                           }`}
-                          className="w-full h-full object-cover"
+                          className="w-full h-full object-contain"
                           style={{ filter: thumbnail.cssFilter || "none" }}
                         />
                       </div>

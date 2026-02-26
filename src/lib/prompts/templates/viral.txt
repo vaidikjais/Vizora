@@ -1,0 +1,4 @@
+ENGINE: Hyper-detailed 3D render.
+LIGHTING: Flashing neon highlights, extreme contrast, dramatic rim lighting.
+AESTHETIC: Hypersaturated colors, exaggerated perspective, glowing outlines, high-octane visual energy, clickbait maximalist style.
+LENS: Extreme wide-angle lens distortion (14mm).

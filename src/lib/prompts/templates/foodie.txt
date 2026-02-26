@@ -1,0 +1,4 @@
+ENGINE: Commercial food photography.
+LIGHTING: Warm appetizing directional lighting, bright specular highlights on moisture.
+AESTHETIC: Macro food photography, steam accents, rich textures, glistening surfaces, rustic or modern plating, mouth-watering details.
+LENS: 100mm macro lens, extremely shallow depth of field.

@@ -1,0 +1,1 @@
+CRITICAL INSTRUCTIONS: Do NOT add play buttons, timestamps, progress bars, logos, or any web UI elements. Do NOT add borders, letterboxing, or padding. Render the output at the highest possible visual fidelity.

@@ -1,0 +1,1 @@
+LAYOUT CONSTRAINT: Leave empty space in dynamic areas of the composition for auto-generated catchy text overlays to be placed later.

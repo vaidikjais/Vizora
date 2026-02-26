@@ -1,31 +1,21 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { isAuthenticated, getCurrentUser, logout } from "@/lib/simple-auth";
+import { useClerk, useUser } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 
+import { getDisplayName } from "@/lib/utils";
+
 export default function UploadPage() {
-  const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const { user, isLoaded } = useUser();
+  const { signOut } = useClerk();
   const [selectedFile, setSelectedFile] = useState(null);
   const [dragActive, setDragActive] = useState(false);
   const router = useRouter();
 
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      router.push("/sign-in");
-      return;
-    }
-
-    const currentUser = getCurrentUser();
-    setUser(currentUser);
-    setLoading(false);
-  }, [router]);
-
   const handleLogout = () => {
-    logout();
-    router.push("/");
+    signOut(() => router.push("/"));
   };
 
   const handleFileSelect = (file) => {
@@ -66,13 +56,13 @@ export default function UploadPage() {
       const reader = new FileReader();
       reader.onloadend = () => {
         localStorage.setItem("uploadedImage", reader.result);
-        router.push("/filters");
+        router.push("/mode-select");
       };
       reader.readAsDataURL(selectedFile);
     }
   };
 
-  if (loading) {
+  if (!isLoaded) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-background via-background to-black flex items-center justify-center">
         <div className="text-center">
@@ -81,10 +71,6 @@ export default function UploadPage() {
         </div>
       </div>
     );
-  }
-
-  if (!user) {
-    return null;
   }
 
   return (
@@ -97,7 +83,7 @@ export default function UploadPage() {
         </div>
         <div className="flex items-center space-x-4">
           <span className="text-muted-foreground">
-            Welcome, {user.username}
+            Welcome, {getDisplayName(user)}
           </span>
           <Button
             onClick={handleLogout}

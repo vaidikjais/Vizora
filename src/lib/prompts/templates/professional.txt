@@ -1,0 +1,4 @@
+ENGINE: Unreal Engine 5 render, cinematic.
+LIGHTING: Apple event product photography style, ultra-clean studio lighting, soft diffused softbox reflections.
+AESTHETIC: High-end commercial photography, minimalist, elegant, trustworthy, muted but rich color palette.
+LENS: 85mm lens with very shallow depth of field, creamy bokeh background.

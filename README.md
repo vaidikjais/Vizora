@@ -17,7 +17,7 @@ Made by Vaidik Jaiswal ✨
 - **⚡ Quick Templates** – Viral, Professional, Foodie, Gamer & more
 - **🔄 Multiple Variations** – Get 4+ AI-generated thumbnails per request
 - **📊 Quality Scoring** – Each thumbnail is auto-scored for optimization
-- **🔒 Simple Authentication** – Username/password login system
+- **🔒 Authentication** – Clerk-powered sign-in and sign-up
 - **📐 Multiple Aspect Ratios** – 16:9, 1:1, 4:3, 9:16, 21:9 support
 
 ---
@@ -27,7 +27,7 @@ Made by Vaidik Jaiswal ✨
 - **Frontend**: Next.js 15, React 19, Tailwind CSS, Radix UI
 - **Backend**: Next.js API Routes
 - **AI**: Google Gemini 2.5 Flash (image generation), OpenAI GPT-4 (prompt optimization)
-- **Auth**: Custom simple authentication system
+- **Auth**: Clerk (session-based authentication)
 - **Storage**: Local file system for generated images
 
 ---
@@ -46,10 +46,21 @@ cd vizora && npm install
 Create a `.env.local` file with:
 
 ```env
+# AI (required for generation)
 GOOGLE_AI_API_KEY=your_gemini_api_key_here
 OPENAI_API_KEY=your_openai_api_key_here
-DEMO_USERNAME= battleofBs
-DEMO_PASSWORD=jonsnow
+
+# Clerk (required for authentication)
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
+CLERK_SECRET_KEY=sk_test_...
+```
+
+Optional Clerk redirect URLs (defaults work with `/sign-in`, `/sign-up`, `/upload`):
+
+```env
+CLERK_SIGN_IN_URL=/sign-in
+CLERK_AFTER_SIGN_IN_URL=/upload
+CLERK_SIGN_UP_URL=/sign-up
 ```
 
 ### 3. Run development server
@@ -60,7 +71,7 @@ npm run dev
 
 ### 4. Open http://localhost:3000
 
-**Demo Credentials**: `chaicode` / `ilovetea`
+Sign in or sign up via the app; create users in the [Clerk Dashboard](https://dashboard.clerk.com) for your instance.
 
 ---
 

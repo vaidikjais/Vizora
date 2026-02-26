@@ -1,0 +1,4 @@
+ENGINE: Unreal Engine 5 render, RTX raytracing.
+LIGHTING: Cyberpunk neon Rim lighting, dramatic volumetric fog, intense bioluminescent accents, high-contrast backlighting.
+AESTHETIC: High-octane esports gaming aesthetic, hyper-realistic, dynamic particle effects, glowing hardware components, futuristic and aggressive visual hierarchy.
+LENS: 24mm wide-angle lens, slight chromatic aberration.

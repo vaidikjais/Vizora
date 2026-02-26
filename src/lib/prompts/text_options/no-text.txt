@@ -1,0 +1,1 @@
+LAYOUT CONSTRAINT: Ensure absolutely NO text, NO letters, NO numbers, and NO watermarks appear anywhere in the image. The entire frame should be pure subject and background.
