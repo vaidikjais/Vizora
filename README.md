@@ -1,152 +1,104 @@
+# Vizora - AI YouTube Thumbnail Generator
 
-**Vizora – AI YouTube Thumbnail Generator**
+An AI-powered platform for creating YouTube thumbnails with optimized templates, custom controls, and intelligent prompt generation. Built with Next.js, React, and Google Gemini.
 
-An AI-powered platform for creating stunning YouTube thumbnails with templates, customization, and smart prompt optimization.
-Built with Next.js, React, Google Gemini, and OpenAI.
-Made by Vaidik Jaiswal ✨
-
-🌐 **Live Demo**: [https://vizora-iezz.vercel.app/](vizora-demo) ✨
+Live Demo: [https://vizora-iezz.vercel.app/](https://vizora-iezz.vercel.app/)
 
 ---
 
-## 🚀 Features
+## Features
 
-- **🎯 AI Generation** – Smart thumbnails using Google Gemini 2.5 Flash
-- **🧠 Smart Prompt Optimization** – OpenAI GPT-4 for query rewriting and enhancement
-- **🎨 Customization** – Categories, styles, text, focus, and color schemes
-- **⚡ Quick Templates** – Viral, Professional, Foodie, Gamer & more
-- **🔄 Multiple Variations** – Get 4+ AI-generated thumbnails per request
-- **📊 Quality Scoring** – Each thumbnail is auto-scored for optimization
-- **🔒 Authentication** – Clerk-powered sign-in and sign-up
-- **📐 Multiple Aspect Ratios** – 16:9, 1:1, 4:3, 9:16, 21:9 support
-
----
-
-## 🛠️ Tech Stack
-
-- **Frontend**: Next.js 15, React 19, Tailwind CSS, Radix UI
-- **Backend**: Next.js API Routes
-- **AI**: Google Gemini 2.5 Flash (image generation), OpenAI GPT-4 (prompt optimization)
-- **Auth**: Clerk (session-based authentication)
-- **Storage**: Local file system for generated images
+- AI Generation: Create thumbnails automatically using Google Gemini 2.5 Flash.
+- Smart Prompt Optimization: Enhance standard user inputs to generate better, more consistent image results.
+- Customization: Control category, style, text, focus, and color schemes.
+- Quick Templates: Pre-defined aesthetic styles like Professional, Viral, Foodie, and Gamer.
+- Multiple Variations: Generate several distinct thumbnail options per request.
+- Configurable Aspect Ratios: Built-in layout support for 16:9, 1:1, 4:3, 9:16, and 21:9.
+- Authentication: Secure user accounts and session management powered by Clerk.
 
 ---
 
-## ⚡ Quick Start
+## Tech Stack
 
-### 1. Clone repo & install dependencies
+- Frontend: Next.js 15, React 19, Tailwind CSS, Radix UI
+- Backend: Next.js API Routes
+- AI: Google Gemini 2.5 Flash
+- Auth: Clerk
+
+---
+
+## Quick Start
+
+### 1. Clone the repository and install dependencies
 
 ```bash
 git clone <repo-url>
-cd vizora && npm install
+cd vizora
+npm install
 ```
 
 ### 2. Set up environment variables
 
-Create a `.env.local` file with:
+Create a `.env.local` file at the root of the project with the following essential variables:
 
 ```env
-# AI (required for generation)
+# AI API Key (required for generation)
 GOOGLE_AI_API_KEY=your_gemini_api_key_here
-OPENAI_API_KEY=your_openai_api_key_here
 
-# Clerk (required for authentication)
+# Clerk Authentication Keys
 NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_...
 CLERK_SECRET_KEY=sk_test_...
+
+# Clerk Route Configuration
+NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
+NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
+NEXT_PUBLIC_CLERK_AFTER_SIGN_IN_URL=/mode-select
+NEXT_PUBLIC_CLERK_AFTER_SIGN_UP_URL=/mode-select
 ```
 
-Optional Clerk redirect URLs (defaults work with `/sign-in`, `/sign-up`, `/upload`):
-
-```env
-CLERK_SIGN_IN_URL=/sign-in
-CLERK_AFTER_SIGN_IN_URL=/upload
-CLERK_SIGN_UP_URL=/sign-up
-```
-
-### 3. Run development server
+### 3. Run the development server
 
 ```bash
 npm run dev
 ```
 
-### 4. Open http://localhost:3000
-
-Sign in or sign up via the app; create users in the [Clerk Dashboard](https://dashboard.clerk.com) for your instance.
+Open http://localhost:3000 in your browser to view the application. 
 
 ---
 
-## 🎨 How It Works
+## How It Works
 
-1. **Upload** a base image
-2. **Customize** with templates or custom options (category, style, colors, aspect ratio)
-3. **Generate** thumbnails (AI creates multiple variations)
-4. **Preview** → **Download** → **Create More**
+1. Upload a base image representing your video content.
+2. Select your workflow: choose a quick aesthetic template or write a custom detailed prompt.
+3. The platform processes your request and returns multiple AI-generated thumbnail variations.
+4. Preview the results and download your favorites directly to your device.
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
-```
+```text
 src/
-├── app/                    # Pages & APIs
-│   ├── api/               # generate, rewrite, iterate
-│   ├── upload/            # Image upload page
-│   ├── filters/           # Customization page
-│   ├── output/            # Results page
-│   └── sign-in/           # Authentication
-├── components/            # UI components
-└── lib/                   # Utilities & auth
+├── app/                    # Next.js Pages and API Routes
+│   ├── api/                # API endpoints for generation
+│   ├── upload/             # Initial image upload interface
+│   ├── mode-select/        # Workflow selection (Templates vs Custom)
+│   ├── templates/          # Quick predefined aesthetic styles
+│   ├── custom/             # Advanced custom prompt builder
+│   ├── output/             # Results gallery and download page
+│   └── sign-in/            # Authentication routes
+├── components/             # Reusable UI components
+└── lib/                    # Shared utilities
 ```
 
 ---
 
-## 🔧 Key Features
+## Deployment
 
-### AI-Powered Generation
-
-- Uses Google Gemini 2.5 Flash for image generation
-- OpenAI GPT-4 for intelligent prompt rewriting and optimization
-- Smart prompt enhancement with industry-specific elements
-- Multiple AI-generated variations per request
-- Fallback to CSS-enhanced versions if AI fails
-
-### Customization Options
-
-- **Templates**: Pop, Professional, Viral, Foodie, Gamer
-- **Categories**: Entertainment, Food, Gaming, Tech, etc.
-- **Styles**: Bold Text, Minimalist, Cinematic, Cartoonish, etc.
-- **Aspect Ratios**: 16:9, 1:1, 4:3, 9:16, 21:9
-- **Color Schemes**: Bright, Dark, Pastel, Brand colors
-
-### User Experience
-
-- Drag-and-drop image upload
-- Real-time generation progress
-- Multiple thumbnail variations
-- Direct download functionality
-- Responsive design
+Vizora is optimized for seamless deployment on platforms like Vercel. Connect your repository, add the required environment variables in the project settings, and deploy.
 
 ---
 
-## 🚀 Deployment
+## License
 
-- **Vercel** – Connect repo & set env variables
-- **Netlify** – Works with proper build settings
-- **Railway** – Node.js deployment supported
-- **Custom hosting** – Any Node.js environment
-
----
-
-## 🔮 Roadmap
-
-- [ ] User dashboard & thumbnail library
-- [ ] Batch processing (multiple thumbnails at once)
-- [ ] Brand kits & advanced templates
-- [ ] Analytics dashboard
-- [ ] Social media platform support
-
----
-
-## 📄 License
-
-MIT © 2025 – Made with ❤️ by Vaidik Jaiswal
+MIT License. Created by Vaidik Jaiswal.
